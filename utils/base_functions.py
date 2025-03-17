@@ -1,8 +1,9 @@
-
+import pytest
 import requests
 from utils.logger import logger
 from utils.config import BASE_URL, TIMEOUT
 
+@pytest.mark.get_request
 def send_get_request(endpoint, params=None):
     url = f"{BASE_URL}{endpoint}"
     try:
@@ -14,6 +15,7 @@ def send_get_request(endpoint, params=None):
         logger.error(f"GET {url} failed: {str(e)}")
         raise
 
+@pytest.mark.post_request
 def send_post_request(endpoint, data=None):
     url = f"{BASE_URL}{endpoint}"
     try:
@@ -25,6 +27,7 @@ def send_post_request(endpoint, data=None):
         logger.error(f"POST {url} failed: {str(e)}")
         raise
 
+@pytest.mark.put_request
 def send_put_request(endpoint, data=None):
     url = f"{BASE_URL}{endpoint}"
     try:
@@ -36,6 +39,7 @@ def send_put_request(endpoint, data=None):
         logger.error(f"PUT {url} failed: {str(e)}")
         raise
 
+@pytest.mark.delete_request
 def send_delete_request(endpoint):
     url = f"{BASE_URL}{endpoint}"
     try:
