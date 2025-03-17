@@ -1,0 +1,4 @@
+2025-03-17 17:36:22,015 - api_testing - INFO - GET https://jsonplaceholder.typicode.com/posts/1 - Status: 200
+2025-03-17 17:36:22,969 - api_testing - INFO - POST https://jsonplaceholder.typicode.com/posts - Status: 201
+2025-03-17 17:36:24,199 - api_testing - INFO - PUT https://jsonplaceholder.typicode.com/posts/1 - Status: 200
+2025-03-17 17:36:25,300 - api_testing - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 - Status: 200
