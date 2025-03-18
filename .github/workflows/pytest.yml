@@ -28,7 +28,6 @@ jobs:
         pip install pytest pytest-html
 
     - name: Run tests
-      working-directory: ./api_testing_framework
       run: pytest -v --html=report.html
 
     - name: Upload test report

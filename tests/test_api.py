@@ -1,6 +1,6 @@
 
 import pytest
-from utils.base_functions import ( send_get_request, send_post_request, send_put_request, send_delete_request)
+from utils.
 
 import utils
 import utils.payloads   # Importing payload data for creating and updating posts
