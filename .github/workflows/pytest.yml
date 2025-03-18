@@ -33,7 +33,7 @@ jobs:
         # pytest -v --html=report.html  # Uncomment this if you want to run all tests
 
     - name: Upload test report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v2
       with:
         name: test-report
         path: report.html  # Upload the HTML test report artifact
