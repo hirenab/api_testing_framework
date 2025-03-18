@@ -25,7 +25,8 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
-
+    - name: Check the tree view of the framework
+      run: ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
     - name: Run tests
       run: pytest -v --html=report.html
 
