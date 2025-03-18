@@ -14,3 +14,4 @@ handler.setFormatter(formatter)  # Attach the formatter to the handler
 
 # Add the handler to the logger
 logger.addHandler(handler)
+
