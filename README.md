@@ -42,20 +42,20 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
    ```
 
 2. Install the required dependencies:
-
+   ```
    pip install -r requirements.txt
-   
+   ```
 
 3. Set up environment variables (e.g., API tokens, base URL):
-
+   ```
    export BASE_URL="https://jsonplaceholder.typicode.com"
    export TIMEOUT=30
-   
+   ```
 
 4. Run the tests:
-
+   ```
    pytest --html=reports/report.html --self-contained-html
-
+   ```
 
 ## API Endpoints
 
@@ -88,16 +88,19 @@ json
 ## Running the Tests
 
 To run all tests, use:
-
+```
 pytest --html=reports/report.html --self-contained-html
+```
 
-To run a specific test file, 
+To run a specific test file, use:
+``` 
+pytest tests/test_api.py
+```
 
-use: pytest tests/test_api.py
-
-To run a specific test case, 
-
-use: pytest -k "test_get_post"
+To run a specific test case, use: 
+```
+pytest -k "test_get_post"
+```
 
 ## License
 
