@@ -2,9 +2,12 @@
 import pytest
 from utils.base_functions import ( send_get_request, send_post_request, send_put_request, send_delete_request)
 
-from utils.payloads import create_post_payload, update_post_payload  # Importing payload data for creating and updating posts
+import utils
+import utils.payloads   # Importing payload data for creating and updating posts
 
-
+create_post_payload = utils.payloads.create_post_payload
+update_post_payload = utils.payloads.update_post_payload
+# from api_testing_framework.utils
 # Test function for GET request to retrieve a post
 @pytest.mark.get_request
 def test_get_post():

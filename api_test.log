@@ -46,3 +46,7 @@
 2025-03-18 17:16:37,065 - api_testing - INFO - POST https://jsonplaceholder.typicode.com/posts - Status: 201
 2025-03-18 17:16:37,832 - api_testing - INFO - PUT https://jsonplaceholder.typicode.com/posts/1 - Status: 200
 2025-03-18 17:16:38,587 - api_testing - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 - Status: 200
+2025-03-18 18:26:15,080 - api_testing - INFO - GET https://jsonplaceholder.typicode.com/posts/1 - Status: 200
+2025-03-18 18:26:15,963 - api_testing - INFO - POST https://jsonplaceholder.typicode.com/posts - Status: 201
+2025-03-18 18:26:16,849 - api_testing - INFO - PUT https://jsonplaceholder.typicode.com/posts/1 - Status: 200
+2025-03-18 18:26:17,550 - api_testing - INFO - DELETE https://jsonplaceholder.typicode.com/posts/1 - Status: 200
