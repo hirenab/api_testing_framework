@@ -6,7 +6,7 @@ from utils.base_functions import (
     send_put_request, 
     send_delete_request
 )
-from utils.payloads import create_post_payload, update_post_payload  # Importing payload data for creating and updating posts
+from ..utils.payloads import create_post_payload, update_post_payload  # Importing payload data for creating and updating posts
 
 # Test function for GET request to retrieve a post
 @pytest.mark.get_request
