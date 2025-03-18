@@ -31,9 +31,9 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
    
 
 4. Run the tests:
-
+   ```
    pytest --html=reports/report.html --self-contained-html
-   
+   ```
 ## Setup and Installation
 
 1. Clone the repository:
