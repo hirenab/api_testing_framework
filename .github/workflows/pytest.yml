@@ -35,9 +35,9 @@ jobs:
         run: |
           pytest --html=reports/report.html --self-contained-html
 
-      # Upload the test report as an artifact
-      - name: Save test report
+      # Save the test report as an artifact
+      - name: Save test report as artifact
         uses: actions/upload-artifact@v2
         with:
           name: test-report
-          path: reports/report.html
+          path: report.html
