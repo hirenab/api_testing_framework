@@ -31,9 +31,9 @@ jobs:
           pip install -r requirements.txt
 
       # Run the tests using pytest
-      - name: Run tests
+      - name: Run tests and generate report
         run: |
-          pytest --html=reports/report.html --self-contained-html
+          pytest -v tests/test_users.py --html=report.html
 
       # Save the test report as an artifact
       - name: Save test report as artifact
