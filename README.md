@@ -58,7 +58,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 
 ## API Endpoints
 
-## 1. Get Post
+1. Get Post
 - **Endpoint**: /posts/{id}
 - **Method**: GET
 - **Description**: Retrieves a post by its ID.
@@ -68,7 +68,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
   - Status Code: 200 OK
   - Response Body: JSON object with post details.
 
-## 2. Create Post
+2. Create Post
 - **Endpoint**: /posts
 - **Method**: POST
 - **Description**: Creates a new post.
