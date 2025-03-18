@@ -34,4 +34,4 @@ jobs:
       uses: actions/upload-artifact@v3  # Ensure correct version
       with:
         name: test-report
-        path: report.html
+        path: reports/report.html
