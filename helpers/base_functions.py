@@ -1,7 +1,7 @@
 import pytest
 import requests
-from utils.logger import logger  # Custom logger to log request/response information
-from utils.config import BASE_URL, TIMEOUT  # Base URL and timeout configuration for requests
+from helpers.logger import logger  # Custom logger to log request/response information
+from helpers.config import BASE_URL, TIMEOUT  # Base URL and timeout configuration for requests
 
 # Function to send a GET request
 @pytest.mark.get_request
