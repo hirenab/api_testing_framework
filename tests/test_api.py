@@ -1,9 +1,9 @@
 
 import pytest
-from utils.
-
 import utils
-import utils.payloads   # Importing payload data for creating and updating posts
+import utils.payloads 
+from utils.base_functions import *
+# Importing payload data for creating and updating posts
 
 create_post_payload = utils.payloads.create_post_payload
 update_post_payload = utils.payloads.update_post_payload
