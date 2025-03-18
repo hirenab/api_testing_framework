@@ -25,7 +25,6 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
-        pip install pytest pytest-html
 
     - name: Run tests
       run: pytest -v --html=report.html
