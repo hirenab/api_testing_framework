@@ -28,10 +28,7 @@ jobs:
 
     - name: Set PYTHONPATH
       run: echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE" >> $GITHUB_ENV
-
-    - name: Check the tree view of the framework
-      run: ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
-
+      
     - name: Create reports directory
       run: mkdir -p ./reports
 
