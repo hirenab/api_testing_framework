@@ -7,7 +7,7 @@ create_post_payload = {
 
 # Payload for updating a post
 update_post_payload = {
-    "title": "updated title",
-    "body": "updated body",
-    "userId": 1
+    "title": "Hiren Test",
+    "body": "API Testing Hiren",
+    "userId": 10000
 }

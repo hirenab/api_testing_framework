@@ -1,0 +1,30 @@
+# Ignore report files
+./report/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore log files
+api_test.log
+
+# Ignore compiled Python files
+__pycache__/
+
+
+# Ignore virtual environments
+venv/
+env/
+*.py[cod]
+
+# Ignore config files containing sensitive data
+config.ini
+config.cfg
+.env
+
+# Ignore pytest cache
+.cache/
+
+# Ignore test reports
+*.html
+*.xml
+*.css
