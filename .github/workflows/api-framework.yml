@@ -14,7 +14,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Ensure you're using v3
+      uses: actions/checkout@v4
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -25,13 +25,21 @@ jobs:
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
+
+    - name: Set PYTHONPATH
+      run: echo "PYTHONPATH=$PYTHONPATH:$GITHUB_WORKSPACE" >> $GITHUB_ENV
+
     - name: Check the tree view of the framework
       run: ls -R | grep ":$" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/'
+
+    - name: Create reports directory
+      run: mkdir -p ./reports
+
     - name: Run tests
-      run: pytest -v --html=report.html
+      run: pytest -v --html=./reports/report.html
 
     - name: Upload test report
-      uses: actions/upload-artifact@v4  # Ensure correct version
+      uses: actions/upload-artifact@v4
       with:
         name: test-report
         path: ./reports/report.html
