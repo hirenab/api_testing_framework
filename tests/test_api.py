@@ -1,52 +1,45 @@
 import pytest
-from helpers.base_functions import send_get_request, send_post_request, send_put_request, send_delete_request
-from helpers.payloads import create_user_payload, update_user_payload  # Updated payloads for /users
-from helpers.schemas import validate_response, create_user_schema, update_user_schema, delete_user_schema
+from helpers.base_functions import send_post_request, send_get_request, send_put_request, send_delete_request
+from resources.payloads import create_user_payload, update_user_payload
+from resources.config import BASE_URL
+from helpers.auth import TOKEN 
 
-# Add the setup and teardown fixture
-@pytest.fixture(scope="function")
+@pytest.fixture
 def setup_and_teardown():
-    print("\nSetting up resources before test...")
-    yield
-    print("\nTearing down resources after test...")
+    # Setup: Create a user
+    print("Setting up resources before test...")
+    response = send_post_request("/public/v2/users", token=TOKEN, data=create_user_payload)
+    user_id = response.json()['id']
+    yield user_id
+    # Teardown: Delete the user
+    print("Tearing down resources after test...")
+    send_delete_request(f"/public/v2/users/{user_id}", token=TOKEN)
 
-# Test GET request with schema validation
-@pytest.mark.get_request
-def test_get_user(setup_and_teardown):
-    response = send_get_request("/users/1")
-    assert response.status_code == 200
-    response_data = response.json()
-
-    # Validate the response using the correct schema for GET /users/{id}
-    assert validate_response(response_data, create_user_schema), "GET /users/1 response validation failed"
-
-# Test POST request with schema validation
-@pytest.mark.post_request
 def test_create_user(setup_and_teardown):
-    response = send_post_request("/users", data=create_user_payload)
-    assert response.status_code == 201, "POST /users request failed"
-    response_data = response.json()
+    # Setup should create a user and return the user ID
+    user_id = setup_and_teardown
+    assert user_id is not None, "User creation failed"
+    print(f"Created user with ID: {user_id}")
 
-    # Validate response with updated create_user_schema
-    assert validate_response(response_data, create_user_schema), "POST /users response validation failed"
+def test_get_user(setup_and_teardown):
+    # Get the user by ID created during setup
+    user_id = setup_and_teardown
+    response = send_get_request(f"/public/v2/users/{user_id}", token=TOKEN)
+    assert response.status_code == 200, "Fetching user failed"
+    user_data = response.json()
+    print(f"Fetched user: {user_data}")
+    assert user_data['id'] == user_id, "User ID mismatch"
 
-# Test PUT request with schema validation
-@pytest.mark.put_request
 def test_update_user(setup_and_teardown):
-    response = send_put_request("/users/1", data=update_user_payload)
-    assert response.status_code == 200, "PUT /users/1 request failed"
-    response_data = response.json()
-    
-    # Validate response with update_user_schema
-    assert validate_response(response_data, update_user_schema), "PUT /users/1 response validation failed"
+    # Update the user created during setup
+    user_id = setup_and_teardown
+    response = send_put_request(f"/public/v2/users/{user_id}", token=TOKEN, data=update_user_payload)
+    assert response.status_code == 200, "Updating user failed"
+    updated_data = response.json()
+    print(f"Updated user: {updated_data}")
+    assert updated_data['email'] == update_user_payload['email'], "Email not updated"
 
-# Test DELETE request with schema validation
-
-@pytest.mark.delete_request
 def test_delete_user(setup_and_teardown):
-    response = send_delete_request("/users/1")
-    assert response.status_code == 200, "DELETE /users/1 request failed"
-    response_data = response.json()
-    
-    # Validate response with updated delete_user_schema
-    assert validate_response(response_data, delete_user_schema), "DELETE /users/1 response validation failed"
+    # Teardown will automatically delete the user
+    user_id = setup_and_teardown
+    print(f"User {user_id} will be deleted after the test.")

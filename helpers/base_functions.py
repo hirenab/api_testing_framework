@@ -1,73 +1,69 @@
-import pytest
 import requests
-from helpers.logger import logger  # Custom logger to log request/response information
-from helpers.config import BASE_URL, TIMEOUT  # Base URL and timeout configuration for requests
+import logging
+from resources.config import BASE_URL
 
-# Function to send a GET request
-@pytest.mark.get_request
-def send_get_request(endpoint, params=None):
+# Send a POST request
+def send_post_request(endpoint, token, data):
+    headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': f'Bearer {token}'
+    }
+    url = f"{BASE_URL}{endpoint}"
+    print(f"Making POST request to: {url}")
+    response = requests.post(url, headers=headers, json=data)
+    
+    # Log the response for debugging
+    logging.info(f"POST request to {url} returned status code {response.status_code}")
+    print("Response JSON:", response.json())  # Debugging purpose
 
-    url = f"{BASE_URL}{endpoint}"  # Construct full URL by appending the endpoint to the base URL
+    response.raise_for_status()  # Raise an error for bad status codes
+    return response
+
+# Send a GET request
+def send_get_request(endpoint, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    url = f"{BASE_URL}{endpoint}"
     try:
-        # Send the GET request
-        response = requests.get(url, params=params, timeout=TIMEOUT)
-        # Raise an exception for HTTP errors (4xx and 5xx)
+        response = requests.get(url, headers=headers)
+        logging.info(f"GET request to {url} successful")
+        print("Response JSON:", response.json())  # Debugging purpose
         response.raise_for_status()
-        # Log the successful request
-        logger.info(f"GET {url} - Status: {response.status_code}")
         return response
-    except requests.exceptions.RequestException as e:
-        # Log the error if the request fails
-        logger.error(f"GET {url} failed: {str(e)}")
-        raise  # Re-raise the exception for the caller to handle
-
-# Function to send a POST request
-@pytest.mark.post_request
-def send_post_request(endpoint, data=None):
-
-    url = f"{BASE_URL}{endpoint}"  # Construct full URL by appending the endpoint to the base URL
-    try:
-        # Send the POST request with the data payload
-        response = requests.post(url, json=data, timeout=TIMEOUT)
-        response.raise_for_status()
-        # Log the successful request
-        logger.info(f"POST {url} - Status: {response.status_code}")
-        return response
-    except requests.exceptions.RequestException as e:
-        # Log the error if the request fails
-        logger.error(f"POST {url} failed: {str(e)}")
+    except requests.exceptions.HTTPError as err:
+        logging.error(f"GET {url} failed: {err}")
         raise
 
-# Function to send a PUT request
-@pytest.mark.put_request
-def send_put_request(endpoint, data=None):
-
-    url = f"{BASE_URL}{endpoint}"  # Construct full URL by appending the endpoint to the base URL
+# Send a PUT request
+def send_put_request(endpoint, token, data):
+    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+    url = f"{BASE_URL}{endpoint}"
     try:
-        # Send the PUT request with the data payload
-        response = requests.put(url, json=data, timeout=TIMEOUT)
+        response = requests.put(url, headers=headers, json=data)
+        logging.info(f"PUT request to {url} successful")
+        print("Response JSON:", response.json())  # Debugging purpose
         response.raise_for_status()
-        # Log the successful request
-        logger.info(f"PUT {url} - Status: {response.status_code}")
         return response
-    except requests.exceptions.RequestException as e:
-        # Log the error if the request fails
-        logger.error(f"PUT {url} failed: {str(e)}")
+    except requests.exceptions.HTTPError as err:
+        logging.error(f"PUT {url} failed: {err}")
         raise
 
-# Function to send a DELETE request
-@pytest.mark.delete_request
-def send_delete_request(endpoint):
-
-    url = f"{BASE_URL}{endpoint}"  # Construct full URL by appending the endpoint to the base URL
+# Send a DELETE request
+def send_delete_request(endpoint, token):
+    headers = {"Authorization": f"Bearer {token}"}
+    url = f"{BASE_URL}{endpoint}"
     try:
-        # Send the DELETE request
-        response = requests.delete(url, timeout=TIMEOUT)
+        response = requests.delete(url, headers=headers)
+        logging.info(f"DELETE request to {url} successful")
+        
+        # Only try to decode JSON if there's content
+        if response.status_code == 204 or not response.content:  # 204 No Content expected
+            print("No content in response, deletion successful.")
+        else:
+            print("Response JSON:", response.json())  # Debugging purpose
+        
         response.raise_for_status()
-        # Log the successful request
-        logger.info(f"DELETE {url} - Status: {response.status_code}")
         return response
-    except requests.exceptions.RequestException as e:
-        # Log the error if the request fails
-        logger.error(f"DELETE {url} failed: {str(e)}")
+    except requests.exceptions.HTTPError as err:
+        logging.error(f"DELETE {url} failed: {err}")
         raise
