@@ -1,16 +1,20 @@
 
-## API Testing Framework
+# API Testing Framework
 
-Overview
+## Overview
 
-A comprehensive API testing framework for testing RESTful APIs. Supports GET, POST, PUT, DELETE requests with schema validation and logging.
+A comprehensive API testing framework for testing RESTful APIs. Supports GET, POST, PUT, DELETE requests with schema validation, authentication, and logging.
 
 ## Key Features
 - Supports GET, POST, PUT, DELETE requests
+- Dynamic user creation with unique email addresses
+- Authentication handling
+- Schema validation for response bodies
 - Detailed logging with request and response data
 - HTML report generation for test results
 - Modular and reusable test functions
 - Easy to extend with new tests or API endpoints
+- Setup and teardown fixture for resource management
 
 ## Setup and Installation
 
