@@ -37,6 +37,7 @@ jobs:
         if [ ! -f resources/config.cfg ]; then
           echo "Config file not found!"
           exit 1
+        fi
 
     - name: Create reports directory
       run: mkdir -p ./reports
