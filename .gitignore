@@ -2,14 +2,15 @@
 ./report/
 
 # Ignore macOS system files
-.DS_Store
+./.DS_Store
 
 # Ignore log files
 api_test.log
 
 # Ignore compiled Python files
 __pycache__/
-
+*.py[cod]
+*.pyo
 
 # Ignore virtual environments
 venv/
