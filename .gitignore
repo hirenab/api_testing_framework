@@ -19,7 +19,6 @@ env/
 
 # Ignore config files containing sensitive data
 config.ini
-config.cfg
 .env
 
 # Ignore pytest cache
