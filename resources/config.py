@@ -1,13 +1,10 @@
-import configparser
 import os
+import configparser
 
-# Create a ConfigParser object
 config = configparser.ConfigParser()
 
-# Read the configuration file from the resources folder
+# Ensure that the path to the config file is correct
 config.read(os.path.join('resources', 'config.cfg'))
 
-# Access the values from the 'API' section
 BASE_URL = config['API']['BASE_URL']
-TIMEOUT = int(config['API']['TIMEOUT'])
-TOKEN = config['API']['TOKEN']
+TIMEOUT = config.getint('API', 'TIMEOUT')
