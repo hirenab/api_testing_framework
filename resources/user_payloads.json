@@ -1,0 +1,14 @@
+{
+    "create_user_payload": {
+      "name": "Hiren AB",
+      "email": "hiren_placeholder@example.com",
+      "gender": "male",
+      "status": "active"
+    },
+    "update_user_payload": {
+      "name": "Hiren AB Updated",
+      "email": "hirenab_placeholder@example.com",
+      "status": "inactive"
+    }
+  }
+  

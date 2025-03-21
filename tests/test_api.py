@@ -1,8 +1,21 @@
 import pytest
+import json
+import time
 from helpers.base_functions import send_post_request, send_get_request, send_put_request, send_delete_request
-from resources.payloads import create_user_payload, update_user_payload
 from resources.config import BASE_URL
-from helpers.auth import TOKEN 
+from helpers.auth import TOKEN
+
+# Load the JSON payloads from the file
+with open('resources/user_payloads.json', 'r') as file:
+    payloads = json.load(file)
+
+# Extract the create and update payloads
+create_user_payload = payloads['create_user_payload']
+update_user_payload = payloads['update_user_payload']
+
+# Dynamically modify the email to ensure uniqueness for each test run
+create_user_payload['email'] = f"hiren_{int(time.time())}@example.com"
+update_user_payload['email'] = f"hirenab_{int(time.time())}@example.com"
 
 @pytest.fixture
 def setup_and_teardown():
