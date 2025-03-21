@@ -30,7 +30,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 
 3. Set up environment variables (e.g., API tokens, base URL):
    ```
-   export BASE_URL="https://jsonplaceholder.typicode.com"
+   export BASE_URL="https://gorest.co.in"
    export TIMEOUT=30
    ```
 
@@ -52,7 +52,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 
 3. Set up environment variables (e.g., API tokens, base URL):
    ```
-   export BASE_URL="https://jsonplaceholder.typicode.com"
+   export BASE_URL="https://gorest.co.in"
    export TIMEOUT=30
    ```
 

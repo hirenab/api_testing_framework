@@ -1,6 +1,6 @@
 {
     "create_user_payload": {
-      "name": "Hiren AB",
+      "name": "Hiren",
       "email": "hiren_placeholder@example.com",
       "gender": "male",
       "status": "active"
