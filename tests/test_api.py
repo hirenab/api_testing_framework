@@ -1,9 +1,12 @@
 import pytest
 import json
 import time
+import os  # Import to access environment variables
 from helpers.base_functions import send_post_request, send_get_request, send_put_request, send_delete_request
 from resources.config import BASE_URL
-from helpers.auth import TOKEN
+
+# Get the token from the environment variable
+TOKEN = os.getenv('API_TOKEN')
 
 # Load the JSON payloads from the file
 with open('resources/user_payloads.json', 'r') as file:
@@ -19,6 +22,9 @@ update_user_payload['email'] = f"hirenab_{int(time.time())}@example.com"
 
 @pytest.fixture
 def setup_and_teardown():
+    if not TOKEN:
+        raise Exception("API_TOKEN environment variable is not set")
+    
     # Setup: Create a user
     print("Setting up resources before test...")
     response = send_post_request("/public/v2/users", token=TOKEN, data=create_user_payload)
