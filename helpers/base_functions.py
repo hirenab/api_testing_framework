@@ -57,7 +57,6 @@ def send_put_request(endpoint, token, data):
         logging.error(f"PUT {url} failed: {err}")
         raise
 
-
 # Send a DELETE request
 def send_delete_request(endpoint, token):
     headers = {"Authorization": f"Bearer {token}"}

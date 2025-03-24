@@ -72,11 +72,8 @@ def test_verify_cannot_create_user_with_invalid_email():
     
     # Assert that the status code is 422 (Unprocessable Entity) since the email is invalid
     assert response.status_code == 422, f"Expected status code 422, but got {response.status_code}"
-    
-    # Extract the response JSON
+
     response_json = response.json()
-    
-    # Assert that the response contains the expected error message for the email field
     email_error = next((error for error in response_json if error['field'] == 'email'), None)
     assert email_error is not None, "Email validation error not found in response"
     assert email_error['message'] == 'is invalid', f"Unexpected error message: {email_error['message']}"
@@ -103,10 +100,7 @@ def test_verify_cannot_update_user_with_invalid_email(setup_and_teardown):
     # Sending the PUT request with invalid email
     response = send_put_request(f"/public/v2/users/{user_id}", token=TOKEN, data=invalid_update_payload)
     
-    # Assert the status code is 422
     assert response.status_code == 422, f"Expected status code 422, but got {response.status_code}"
-    
-    # Assert the error message
     response_json = response.json()
     assert response_json[0]['field'] == 'email', f"Expected 'email' field, but got {response_json[0]['field']}"
     assert response_json[0]['message'] == 'is invalid', f"Expected 'is invalid' message, but got {response_json[0]['message']}"
