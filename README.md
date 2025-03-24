@@ -5,16 +5,16 @@
 A comprehensive API testing framework for testing RESTful APIs. Supports GET, POST, PUT, DELETE requests with schema validation, authentication, and logging.
 
 ## Key Features
-- Supports GET, POST, PUT, DELETE Requests
-- Dynamic User Creation with Unique Email Addresses
-- Environment Variable Support for Secure Token Management
-- Setup and Teardown Fixture for Resource Management
-- Authentication Handling
-- Schema Validation for Response Bodies
-- Detailed Logging with Request and Response Data
-- HTML Report Generation for Test Results
-- Modular and Reusable Test Functions
-- Easy to Extend with New Tests or API Endpoints
+- Supports GET, POST, PUT, DELETE requests for Comprehensive API Testing
+- Dynamic user creation with Unique email addresses and Automatic ID handling 
+- Secure token management via Environment variables
+- Setup and Teardown fixtures for Automated resource management before and after tests
+- Robust authentication handling with Dynamic token usage
+- JSON schema validation for response bodies to ensure Data integrity
+- Detailed logging for Request, Response, and Error information during API calls
+- HTML Report Generation for test results with live logs
+- Modular and Reusable test functions for Efficient testing workflows
+- Easily extensible framework with New test cases or API endpoints, Including error handling for invalid inputs
 
 ## Setup and Installation
 
