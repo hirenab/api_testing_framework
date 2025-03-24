@@ -17,7 +17,10 @@ def send_post_request(endpoint, token, data):
     logging.info(f"POST request to {url} returned status code {response.status_code}")
     print("Response JSON:", response.json())  # Debugging purpose
 
-    response.raise_for_status()  # Raise an error for bad status codes
+    # Do not raise exceptions for 4xx codes, since the test may expect these.
+    if response.status_code >= 500:  # Only raise for 5xx server errors
+        response.raise_for_status()
+    
     return response
 
 # Send a GET request
@@ -40,13 +43,20 @@ def send_put_request(endpoint, token, data):
     url = f"{BASE_URL}{endpoint}"
     try:
         response = requests.put(url, headers=headers, json=data)
-        logging.info(f"PUT request to {url} successful")
+        logging.info(f"PUT request to {url} returned status code {response.status_code}")
         print("Response JSON:", response.json())  # Debugging purpose
-        response.raise_for_status()
+
+        # Allow 422 errors for validation purposes in tests
+        if response.status_code == 422:
+            logging.error(f"Validation failed: {response.json()}")
+        else:
+            response.raise_for_status()
+
         return response
     except requests.exceptions.HTTPError as err:
         logging.error(f"PUT {url} failed: {err}")
         raise
+
 
 # Send a DELETE request
 def send_delete_request(endpoint, token):
