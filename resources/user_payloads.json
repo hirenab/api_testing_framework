@@ -9,6 +9,11 @@
       "name": "Hiren AB Updated",
       "email": "hirenab_placeholder@example.com",
       "status": "inactive"
+    },
+    "invalid_update_payload": {
+      "name": "34123",
+      "email": "invalid_email_format",
+      "status": "active"
     }
   }
   
