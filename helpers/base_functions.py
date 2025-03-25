@@ -23,14 +23,14 @@ def send_dynamic_request(method, endpoint, token, data=None):
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")
             
-        # # Check for validation errors (assuming status code 422 for validation issues)
+         # Check for validation errors (assuming status code 422 for validation issues)
         # if response.status_code == 422:
-        #     logging.info(f"Validation failed: {response.json()}")
+        #      logging.info(f"Validation failed: {response.json()}")
         # else:
-        #     response.raise_for_status()
+        #      response.raise_for_status()
             
         return response
 
     except requests.exceptions.RequestException as err:
-        # logging.error(f"Request failed: {err}")
-        raise err
+        #  logging.error(f"Request failed: {err}")
+        raise
