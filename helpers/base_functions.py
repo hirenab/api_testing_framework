@@ -2,77 +2,59 @@ import requests
 import logging
 from resources.config import BASE_URL
 
-# Send a POST request
-def send_post_request(endpoint, token, data):
+# Send a POST, GET, PUT, DELETE request
+def send_dynamic_request(method, endpoint, token, data=None):
+    """
+    Sends a dynamic HTTP request (POST, GET, PUT, DELETE).
+
+    :param method: HTTP method (e.g., 'POST', 'GET', 'PUT', 'DELETE')
+    :param endpoint: API endpoint
+    :param token: Authorization token
+    :param data: (Optional) Payload data for POST/PUT requests
+    :return: Response object
+    """
     headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': f'Bearer {token}'
+        'Authorization': f'Bearer {token}',
+        'Accept': 'application/json'
     }
-    url = f"{BASE_URL}{endpoint}"
-    print(f"Making POST request to: {url}")
-    response = requests.post(url, headers=headers, json=data)
-    
-    # Log the response for debugging
-    logging.info(f"POST request to {url} returned status code {response.status_code}")
-    print("Response JSON:", response.json())  # Debugging purpose
 
-    # Do not raise exceptions for 4xx codes, since the test may expect these.
-    if response.status_code >= 500:  # Only raise for 5xx server errors
-        response.raise_for_status()
+    if data:
+        headers['Content-Type'] = 'application/json'
     
-    return response
-
-# Send a GET request
-def send_get_request(endpoint, token):
-    headers = {"Authorization": f"Bearer {token}"}
     url = f"{BASE_URL}{endpoint}"
     try:
-        response = requests.get(url, headers=headers)
-        logging.info(f"GET request to {url} successful")
-        print("Response JSON:", response.json())  # Debugging purpose
-        response.raise_for_status()
-        return response
-    except requests.exceptions.HTTPError as err:
-        logging.error(f"GET {url} failed: {err}")
-        raise
-
-# Send a PUT request
-def send_put_request(endpoint, token, data):
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-    url = f"{BASE_URL}{endpoint}"
-    try:
-        response = requests.put(url, headers=headers, json=data)
-        logging.info(f"PUT request to {url} returned status code {response.status_code}")
-        print("Response JSON:", response.json())  # Debugging purpose
-
-        # Allow 422 errors for validation purposes in tests
-        if response.status_code == 422:
-            logging.error(f"Validation failed: {response.json()}")
+        # Send request based on method
+        if method == 'POST':
+            response = requests.post(url, headers=headers, json=data)
+        elif method == 'GET':
+            response = requests.get(url, headers=headers)
+        elif method == 'PUT':
+            response = requests.put(url, headers=headers, json=data)
+        elif method == 'DELETE':
+            response = requests.delete(url, headers=headers)
         else:
+            raise ValueError(f"Unsupported method: {method}")
+        
+        # Log the request and response
+        logging.info(f"{method} request to {url} returned status code {response.status_code}")
+        
+        # Debugging purpose - print response JSON if it exists
+        if response.content:  # Check if the response has content
+            try:
+                print("Response JSON:", response.json())
+            except requests.exceptions.JSONDecodeError:
+                print("Response is not in JSON format.")
+            else:
+                print("No content in response.")
+
+        
+        # Handle specific status codes
+        if response.status_code >= 500:
             response.raise_for_status()
-
+        elif response.status_code == 422:
+            logging.error(f"Validation failed: {response.json()}")
+        
         return response
     except requests.exceptions.HTTPError as err:
-        logging.error(f"PUT {url} failed: {err}")
-        raise
-
-# Send a DELETE request
-def send_delete_request(endpoint, token):
-    headers = {"Authorization": f"Bearer {token}"}
-    url = f"{BASE_URL}{endpoint}"
-    try:
-        response = requests.delete(url, headers=headers)
-        logging.info(f"DELETE request to {url} successful")
-        
-        # Only try to decode JSON if there's content
-        if response.status_code == 204 or not response.content:  # 204 No Content expected
-            print("No content in response, deletion successful.")
-        else:
-            print("Response JSON:", response.json())  # Debugging purpose
-        
-        response.raise_for_status()
-        return response
-    except requests.exceptions.HTTPError as err:
-        logging.error(f"DELETE {url} failed: {err}")
+        logging.error(f"{method} request to {url} failed: {err}")
         raise
