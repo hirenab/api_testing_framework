@@ -19,7 +19,7 @@ def send_dynamic_request(method, endpoint, token, data=None):
             response = requests.get(url, headers=headers)
         elif method.upper() == "DELETE":
             response = requests.delete(url, headers=headers)
-        elif method.upper() == "PATCH":  # Added support for PATCH method
+        elif method.upper() == "PATCH":
             response = requests.patch(url, json=data, headers=headers)
         else:
             raise ValueError(f"Unsupported HTTP method: {method}")

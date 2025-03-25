@@ -6,7 +6,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 
 ## Key Features
 - Supports GET, POST, PUT, DELETE requests for Comprehensive API Testing
-- Dynamic user creation with Unique email addresses and Automatic ID handling 
+- Dynamic user creation with Unique email addresses and Automatic ID handling
 - Secure token management via Environment variables
 - Setup and Teardown fixtures for Automated resource management before and after tests
 - Robust authentication handling with Dynamic token usage
@@ -15,6 +15,22 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - HTML Report Generation for test results with live logs
 - Modular and Reusable test functions for Efficient testing workflows
 - Easily extensible framework with New test cases or API endpoints, Including error handling for invalid inputs
+
+## Testcase cover
+
+- Verify user can create a new user successfully.
+- Verify user can get user details successfully.
+- Verify user can update user details successfully.
+- Verify user can delete a user successfully.
+- Verify user cannot create a user with an invalid email.
+- Verify user cannot create a user without required fields.
+- Verify user cannot update user with an invalid email.
+- Verify user cannot create a user with a duplicate email.
+- Verify user cannot get details of a non-existent user.
+- Verify user cannot update a user with empty fields.
+- Verify access is denied with an invalid token.
+- Verify user cannot delete a non-existent user.
+- Verify invalid HTTP method handling.
 
 ## Setup and Installation
 
