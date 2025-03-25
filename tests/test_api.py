@@ -78,16 +78,23 @@ def test_verify_cannot_create_user_with_invalid_email():
     email_error = next((error for error in response_json if error['field'] == 'email'), None)
     assert email_error is not None, "Email validation error not found in response"
     assert email_error['message'] == 'is invalid', f"Unexpected error message: {email_error['message']}"
+
     # Create user without required fields
 def test_verify_cannot_create_user_without_required_fields():
     incomplete_payload = {
-        "email": ""
-    }  # Payload missing required fields
+        "email": "" 
+    }
     response = send_dynamic_request("POST", "/public/v2/users", token=TOKEN, data=incomplete_payload)
+    
     assert response.status_code == 422, "User creation should fail due to missing fields"
     error_message = response.json()
     print(f"Error response: {error_message}")
-    assert "email" in error_message[0]['field'], "Error does not mention email field"
+    
+    # Check all the required fields are missing
+    required_fields = ["email", "name", "gender", "status"]
+    for field in required_fields:
+        assert any(error['field'] == field for error in error_message), f"{field} validation error not found"
+
 
     # Update user with invalid email
 def test_verify_cannot_update_user_with_invalid_email(setup_and_teardown):
