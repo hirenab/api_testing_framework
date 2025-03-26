@@ -1,18 +1,24 @@
 {
   "create_user_payload": {
-    "name": "Hiren",
-    "email": "hiren_placeholder",
-    "gender": "male",
-    "status": "active"
+      "name": "Hiren",
+      "email": "hiren_placeholder",
+      "gender": "male",
+      "status": "active"
   },
   "update_user_payload": {
-    "name": "Hiren AB Updated",
-    "email": "hirenab_placeholder",
-    "status": "inactive"
+      "name": "Hiren AB Updated",
+      "email": "hirenab_placeholder",
+      "status": "inactive"
   },
   "invalid_update_payload": {
-    "name": "34123",
-    "email": "invalid_email_format",
-    "status": "active"
+      "name": "34123",
+      "email": "()&)(",
+      "status": "active"
+  },
+  "valid_update_payload": {
+      "name": "Hiren Abc",
+      "email": "hiren_abc",
+      "gender": "male",
+      "status": "active"
   }
 }

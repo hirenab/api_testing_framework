@@ -139,7 +139,33 @@ def test_verify_cannot_create_user_with_duplicate_email(setup_and_teardown):
     assert email_error is not None, "Email duplication error not found"
     assert email_error['message'] == 'has already been taken', f"Unexpected error message: {email_error['message']}"
 
-    # Verify user cannot get details of a non-existent user
+# --- Parameterized Test for Updating a User ---
+
+@pytest.mark.update_user
+@pytest.mark.parametrize("payload_key,expected_status", [
+    ("valid_update_payload", 200),  # Use the key to load the payload from the JSON
+    ("invalid_update_payload", 422) # For invalid email scenario
+])
+def test_update_user_parametrized(setup_and_teardown, payload_key, expected_status):
+    """
+    Parameterized test for updating a user.
+    First scenario uses a valid update payload expecting 200 status.
+    Second scenario uses an invalid email expecting 422 status.
+    """
+    user_id = setup_and_teardown
+
+    # Dynamically modify the email to ensure uniqueness for valid payload
+    if payload_key == 'valid_update_payload':
+        payloads[payload_key]['email'] = update_user_payload['email']
+
+    payload = payloads[payload_key]
+    
+    logger.info(f"Updating user with payload: {payload} for user ID: {user_id}")
+    response = send_dynamic_request("PUT", f"/public/v2/users/{user_id}", token=TOKEN, data=payload)
+    
+    logger.info(f"Parameterized update response: {response.status_code} - {response.json()}")
+    assert response.status_code == expected_status, f"Expected {expected_status}, but got {response.status_code}"
+
 def test_verify_cannot_get_non_existent_user():
     non_existent_user_id = 9999999
     response = send_dynamic_request("GET", f"/public/v2/users/{non_existent_user_id}", token=TOKEN)
@@ -147,13 +173,9 @@ def test_verify_cannot_get_non_existent_user():
     response_json = response.json()
     assert response_json['message'] == 'Resource not found', f"Unexpected message: {response_json['message']}"
 
-    # Verify user cannot update a user with empty fields
 def test_verify_cannot_update_user_with_empty_fields(setup_and_teardown):
     user_id = setup_and_teardown
-    empty_update_payload = {
-        "name": "",
-        "email": ""
-    }
+    empty_update_payload = {"name": "", "email": ""}
     response = send_dynamic_request("PUT", f"/public/v2/users/{user_id}", token=TOKEN, data=empty_update_payload)
     assert response.status_code == 422, "Expected 422 for updating with empty fields"
     response_json = response.json()
@@ -161,7 +183,6 @@ def test_verify_cannot_update_user_with_empty_fields(setup_and_teardown):
     for field in required_fields:
         assert any(error['field'] == field for error in response_json), f"{field} validation error not found"
 
-    # Verify access is denied with invalid token
 def test_verify_cannot_access_with_invalid_token():
     invalid_token = "invalid_token_value"
     response = send_dynamic_request("GET", "/public/v2/users", token=invalid_token)
@@ -169,7 +190,6 @@ def test_verify_cannot_access_with_invalid_token():
     response_json = response.json()
     assert response_json['message'] == 'Invalid token', f"Unexpected message: {response_json['message']}"
 
-    # Verify user cannot delete a non-existent user
 def test_verify_cannot_delete_non_existent_user():
     non_existent_user_id = 9999999
     response = send_dynamic_request("DELETE", f"/public/v2/users/{non_existent_user_id}", token=TOKEN)
@@ -177,7 +197,6 @@ def test_verify_cannot_delete_non_existent_user():
     response_json = response.json()
     assert response_json['message'] == 'Resource not found', f"Unexpected message: {response_json['message']}"
 
-    # Verify invalid HTTP method handling
 def test_verify_invalid_http_method():
     response = send_dynamic_request("PATCH", "/public/v2/users", token=TOKEN)
     assert response.status_code in [404, 405], f"Expected 404 or 405, but got {response.status_code}"
