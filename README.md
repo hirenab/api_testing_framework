@@ -35,7 +35,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - Verify invalid HTTP method handling.
 
 ## Framework File Structure
-
+```
 ├── helpers
 │   ├── base_functions.py
 │   ├── logger.py
@@ -53,7 +53,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 ├── pytest.ini
 ├── README.md
 ├── requirements.txt
-
+```
 ## Setup and Installation
 
 1. Clone the repository:
