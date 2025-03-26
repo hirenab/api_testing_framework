@@ -15,6 +15,8 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - HTML Report Generation for test results with live logs
 - Modular and Reusable test functions for Efficient testing workflows
 - Easily extensible framework with New test cases or API endpoints, Including error handling for invalid inputs
+- Custom hooks for managing test lifecycle events
+- Markers for test categorization, allowing efficient filtering and execution based on test type
 
 ## Testcase cover
 
@@ -31,6 +33,26 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - Verify access is denied with an invalid token.
 - Verify user cannot delete a non-existent user.
 - Verify invalid HTTP method handling.
+
+## Framework File Structure
+
+├── helpers
+│   ├── base_functions.py
+│   ├── logger.py
+│   ├── schemas.py
+├── report
+│   ├── test_report.html
+├── resources
+│   ├── api_config.cfg
+│   ├── config.cfg
+│   ├── user_payloads.json
+├── tests
+│   ├── test_api.py
+├── requirements.txt 
+├── conftest.py
+├── pytest.ini
+├── README.md
+├── requirements.txt
 
 ## Setup and Installation
 
@@ -50,7 +72,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
    export TIMEOUT=30
    ```
 
-4. Set up the API token (replace with your actual token):
+4. Set up the API token:
    ```
    export API_TOKEN=your_api_token_here
    ```
@@ -131,4 +153,13 @@ pytest tests/test_api.py
 To run a specific test case, use:
 ```
 pytest -k "test_get_user"
+```
+To run tests with specific markers, use:
+```
+pytest -m "create_user"
+```
+
+To run multiple markers, use:
+```
+pytest -m "create_user or get_user"
 ```
