@@ -5,7 +5,7 @@ import os
 config = configparser.ConfigParser()
 
 # Construct the correct path to the config.cfg file
-config_file_path = os.path.join(os.path.dirname(__file__), 'config.cfg')
+config_file_path = os.path.join(os.path.dirname(__file__), 'api_config.cfg')
 
 # Log the config file path to verify if it is correct
 print(f"Config file path: {config_file_path}")
