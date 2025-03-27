@@ -5,6 +5,7 @@
 A comprehensive API testing framework for testing RESTful APIs. Supports GET, POST, PUT, DELETE requests with schema validation, authentication, and logging.
 
 ## Key Features
+
 - Supports GET, POST, PUT, DELETE requests for Comprehensive API Testing
 - Dynamic user creation with Unique email addresses and Automatic ID handling
 - Secure token management via Environment variables
@@ -17,8 +18,9 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - Easily extensible framework with New test cases or API endpoints, Including error handling for invalid inputs
 - Custom hooks for managing test lifecycle events
 - Markers for test categorization, allowing efficient filtering and execution based on test type
+- Parallel test execution for faster results
 
-## Testcase cover
+## Test Cases Covered
 
 - Verify user can create a new user successfully.
 - Verify user can get user details successfully.
@@ -26,7 +28,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 - Verify user can delete a user successfully.
 - Verify user cannot create a user with an invalid email.
 - Verify user cannot create a user without required fields.
-- Verify user cannot update user with an invalid email.
+- Verify user cannot update a user with an invalid email.
 - Verify user cannot create a user with a duplicate email.
 - Verify user cannot get details of a non-existent user.
 - Verify user cannot update a user with empty fields.
@@ -54,6 +56,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
 ├── README.md
 ├── requirements.txt
 ```
+
 ## Setup and Installation
 
 1. Clone the repository:
@@ -102,7 +105,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
    ```json
    {
      "name": "John Doe",
-     "email": "johndoe_{timestamp}@example.com",
+     "email": "johndoe_{uuid.uuid4()}@example.com",
      "gender": "male",
      "status": "active"
    }
@@ -121,7 +124,7 @@ A comprehensive API testing framework for testing RESTful APIs. Supports GET, PO
    ```json
    {
      "name": "Jane Doe",
-     "email": "janedoe_{timestamp}@example.com"
+     "email": "janedoe_{uuid.uuid4()}@example.com"
    }
    ```
 - **Expected Response**:
@@ -152,7 +155,7 @@ pytest tests/test_api.py
 
 To run a specific test case, use:
 ```
-pytest -k "test_get_user"
+pytest <path_to_test_file>::<test_case_name>
 ```
 To run tests with specific markers, use:
 ```
